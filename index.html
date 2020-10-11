@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Anime Catelogue</title>
+    <link rel="stylesheet" href="style.min.css">
+</head>
+<body>
+    <div class="header">
+        <div class="avatar"></div>
+        <div class="banner"></div>
+
+        <div class="selectcard">
+            <div class="name">blekmus</div>
+            <div class="btn-container">
+                <button id="watching" class="btn">Watching</button>
+                <button id="completed" class="active btn">Completed</button>
+                <button id="planning" class="btn">Planning</button>
+            </div>
+        </div>
+        <div id="info-container">
+            <div id="info-click"></div>
+            <div id="info">
+                <span class="arrow"></span>
+                <div>
+                    <p>Total Completed: <span></span></p>
+                    <p>Total Planned: <span></span></p>
+                    <p>Watching: <span></span></p>
+                    <p>Hours Watched: <span></span></p>
+                    <p>Episodes Watched: <span></span></p>
+                    <p>Mean Score: <span></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div id="watching" class="show-list"></div>
+        <div id="completed" class="show-list active"></div>
+        <div id="planning" class="show-list"></div>
+    </div>
+
+    <div class="footer">
+        <h2>Made with <span>♥</span> by <a href="https://github.com/fire-walker" target="_blank">fire-walker</a></h2>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
