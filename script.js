@@ -231,7 +231,7 @@ function handleList(data) {
 function handleInfo(data) {
   arrowListner()
 
-  let infoDiv = document.querySelector('#info').children[1]
+  let infoDiv = document.querySelector('.info-items')
 
   let completed = data.data.MediaListCollection.lists.filter(status => status.name == 'Completed')
   let planning = data.data.MediaListCollection.lists.filter(status => status.name == 'Planning')
