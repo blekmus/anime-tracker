@@ -8,7 +8,7 @@ query {
       entries {
         media {
           coverImage {
-            medium
+            large
           }
           title {
             romaji
@@ -106,7 +106,7 @@ function showElementCreate(show) {
   showCoverImg.setAttribute('href', show.media.siteUrl)
   showCoverImg.setAttribute('target', '_blank')
   showCoverImg.appendChild(document.createElement('img'))
-  showCoverImg.children[0].setAttribute('src', show.media.coverImage.medium)
+  showCoverImg.children[0].setAttribute('src', show.media.coverImage.large)
 
   let showTitle = document.createElement('a')
   showTitle.setAttribute('class', 'title')
