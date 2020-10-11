@@ -161,7 +161,7 @@ function btnListner() {
     })
   })
 }
-function arrowListner() {
+function arrowListner(data) {
   let infoClick = document.getElementById('info')
 
   document.getElementById('info-click').addEventListener('click', function () {  
@@ -169,8 +169,70 @@ function arrowListner() {
       infoClick.classList.remove('active')
     } else {
       infoClick.classList.add('active')
+      arrowOpenAnimation(data)
     }
   })
+}
+function arrowOpenAnimation(data) {
+  let infoDiv = document.querySelector('.info-items')
+
+  let completed = data.data.MediaListCollection.lists.filter(status => status.name == 'Completed')
+  let planning = data.data.MediaListCollection.lists.filter(status => status.name == 'Planning')
+  let watching = data.data.MediaListCollection.lists.filter(status => status.name == 'Watching')
+
+
+
+  if (completed.length != 0) {
+    let completedNum = completed[0].entries.length
+    let completedAnim = new CountUp("completed-info", 0, completedNum, 0, 2, {useGrouping: false, useEasing: true})
+    completedAnim.start()
+  } else {
+    infoDiv.children[0].children[0].innerText = 0
+  }
+
+  if (planning.length != 0) {
+    let planningNum = planning[0].entries.length
+    let planningAnim = new CountUp("planning-info", 0, planningNum, 0, 2, {useGrouping: false, useEasing: true})
+    planningAnim.start();
+  } else {
+    infoDiv.children[1].children[0].innerText = 0
+  }
+
+  if (watching.length != 0) {
+    let watchingNum = watching[0].entries.length
+    let watchingAnim = new CountUp("watching-info", 0, watchingNum, 0, 2, {useGrouping: false, useEasing: true})
+    watchingAnim.start()
+  } else {
+    infoDiv.children[2].children[0].innerText = 0
+  }
+  
+  let hoursAnim = new CountUp('hour-info', 0, Math.floor(data.data.User.statistics.anime.minutesWatched/60), 0, 2, {useGrouping: false, useEasing: true});
+  let episodesAnim = new CountUp('episode-info', 0, data.data.User.statistics.anime.episodesWatched, 0, 2, {useGrouping: false, useEasing: true});
+  let scoreAnim = new CountUp('score-info', 0, data.data.User.statistics.anime.meanScore, 1, 2, {useGrouping: false, useEasing: true});
+
+
+
+
+
+
+
+  if (!hoursAnim.error) {
+    hoursAnim.start();
+  } else {
+   console.error(hoursAnim.error);
+  }
+
+  if (!episodesAnim.error) {
+    episodesAnim.start();
+  } else {
+   console.error(episodesAnim.error);
+  }
+
+  if (!scoreAnim.error) {
+    scoreAnim.start();
+  } else {
+   console.error(scoreAnim.error);
+  }
 }
 
 
@@ -229,36 +291,7 @@ function handleList(data) {
   btnListner()  
 }
 function handleInfo(data) {
-  arrowListner()
-
-  let infoDiv = document.querySelector('.info-items')
-
-  let completed = data.data.MediaListCollection.lists.filter(status => status.name == 'Completed')
-  let planning = data.data.MediaListCollection.lists.filter(status => status.name == 'Planning')
-  let watching = data.data.MediaListCollection.lists.filter(status => status.name == 'Watching')
-
-  if (completed.length != 0) {
-    let completedNum = completed[0].entries.length
-    infoDiv.children[0].children[0].innerText = completedNum
-  } else {
-    infoDiv.children[0].children[0].innerText = 0
-  }
-  if (planning.length != 0) {
-    let planningNum = planning[0].entries.length
-    infoDiv.children[1].children[0].innerText = planningNum
-  } else {
-    infoDiv.children[1].children[0].innerText = 0
-  }
-  if (watching.length != 0) {
-    let watchingNum = watching[0].entries.length
-    infoDiv.children[2].children[0].innerText = watchingNum
-  } else {
-    infoDiv.children[2].children[0].innerText = 0
-  }
-
-  infoDiv.children[3].children[0].innerText = `${Math.floor(data.data.User.statistics.anime.minutesWatched/60)}h`
-  infoDiv.children[4].children[0].innerText = data.data.User.statistics.anime.episodesWatched
-  infoDiv.children[5].children[0].innerText = data.data.User.statistics.anime.meanScore
+  arrowListner(data)
 }
 
 

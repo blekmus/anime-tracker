@@ -61,7 +61,7 @@ body {
             button {
                 // color: #d878cb;
                 margin: 0 55px;
-                background-color: #273646;
+                background-color: #1f2b38;
                 border: none;
                 padding: 8px 10px;
                 border-radius: 4px;
@@ -75,7 +75,6 @@ body {
                 &.active,
                 &:hover {
                     color: rgb(61,180,242);
-                    background-color: #273646;
                 }
 
                 &.active {
@@ -226,8 +225,8 @@ body {
         margin: 50px 100px 50px 100px;
 
         div {
+            background: linear-gradient(to top, #151f2e, #151f2e);
             padding: 10px 10px 5px 10px;
-            background-color: #151f2e;
             border-radius: 4px;
             width: 205px;
             display: grid;
@@ -279,13 +278,13 @@ body {
 
     h2 {
         font-family: sans-serif;
-        color: #d878cb;
+        color: #3db4f2;
         font-size: 15px;
         font-weight: 500;
 
         a {
             text-decoration: none;
-            color: #3db4f2;
+            color: #d878cb;
         }
     }
 }

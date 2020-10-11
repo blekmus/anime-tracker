@@ -26,12 +26,12 @@
                 <span class="arrow"></span>
                 <div>
                     <div class="info-items">
-                        <p>Total Completed: <span></span></p>
-                        <p>Total Planned: <span></span></p>
-                        <p>Watching: <span></span></p>
-                        <p>Hours Watched: <span></span></p>
-                        <p>Episodes Watched: <span></span></p>
-                        <p>Mean Score: <span></span></p>
+                        <p>Total Completed: <span id="completed-info"></span></p>
+                        <p>Total Planned: <span id="planning-info"></span></p>
+                        <p>Watching: <span id="watching-info"></span></p>
+                        <p>Hours Watched: <span id="hour-info"></span></p>
+                        <p>Episodes Watched: <span id="episode-info"></span></p>
+                        <p>Mean Score: <span id="score-info"></span></p>
                     </div>
                 </div>
             </div>
@@ -47,10 +47,14 @@
     <div class="footer">
         <h2>Made with <span>♥</span> by <a href="https://github.com/fire-walker" target="_blank">fire-walker</a></h2>
     </div>
-    <script src="script.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.9.0/countUp.min.js"></script>
+    <script src="script.js" type="text/javascript"></script>
 </body>
 </html>
 
 
 <!-- ================== TODO ================= -->
 <!-- Cover title font color should lighten -->
+<!-- animate info numbers to count -->
+<!-- footer color switch -->
