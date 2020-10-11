@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Anime Catelogue</title>
+    <title>Anime Stats</title>
     <link rel="stylesheet" href="style.min.css">
 </head>
 <body>
+    <div class="preloader-container">
+        <div class="preloader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+
     <div class="header">
         <div class="avatar"></div>
         <div class="banner"></div>
 
         <div class="selectcard">
-            <div class="name">blekmus</div>
+            <div class="name"></div>
             <div class="btn-container">
                 <button id="watching" class="btn">Watching</button>
                 <button id="completed" class="active btn">Completed</button>
@@ -25,7 +29,7 @@
             <div id="info">
                 <span class="arrow"></span>
                 <div>
-                    <div class="info-items">
+                    <div class="info-items start-animation">
                         <p>Total Completed: <span id="completed-info"></span></p>
                         <p>Total Planned: <span id="planning-info"></span></p>
                         <p>Watching: <span id="watching-info"></span></p>

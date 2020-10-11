@@ -1,8 +1,20 @@
+const urlParams = new URLSearchParams(window.location.search)
+userName = urlParams.get('user')
+
+if (userName == null) {
+  window.location = '/?user=blekmus';
+}
+
+
 var url = 'https://graphql.anilist.co'
 
+var variables = {
+  userName: userName
+}
+
 var mediaList = `
-query { 
-  MediaListCollection (userId: 695637 type: ANIME) { 
+query ($userName: String) { 
+  MediaListCollection (userName: $userName, type: ANIME) { 
     lists {
       name
       entries {
@@ -27,14 +39,15 @@ var mediaOptions = {
     'Accept': 'application/json',
   },
   body: JSON.stringify({
-    query: mediaList
+    query: mediaList,
+    variables: variables
   })
 }
 
 
 var userList = `
-query { 
-	User (name: "blekmus") {
+query ($userName: String) { 
+	User (name: $userName) {
   	id
     avatar {
       large
@@ -50,14 +63,15 @@ var userOptions = {
     'Accept': 'application/json',
   },
   body: JSON.stringify({
-    query: userList
+    query: userList,
+    variables: variables
   })
 }
 
 
 var infoList = `
-{
-  User(name: "blekmus") {
+query ($userName: String) {
+  User(name: $userName) {
     updatedAt
 		statistics {
       anime {
@@ -67,7 +81,7 @@ var infoList = `
       }
     }
   }
-  MediaListCollection(userName: "blekmus", type: ANIME) {
+  MediaListCollection(userName: $userName, type: ANIME) {
     lists {
       name
       entries {
@@ -85,7 +99,8 @@ var infoOptions = {
     'Accept': 'application/json',
   },
   body: JSON.stringify({
-    query: infoList
+    query: infoList,
+    variables: variables
   })
 }
 
@@ -180,59 +195,100 @@ function arrowOpenAnimation(data) {
   let planning = data.data.MediaListCollection.lists.filter(status => status.name == 'Planning')
   let watching = data.data.MediaListCollection.lists.filter(status => status.name == 'Watching')
 
+  if (infoDiv.classList.contains('start-animation')) {
+    if (completed.length != 0) {
+      let completedNum = completed[0].entries.length
+      let completedAnim = new CountUp("completed-info", 0, completedNum, 0, 2, {useGrouping: false, useEasing: true})
+      completedAnim.start()
+    } else {
+      infoDiv.children[0].children[0].innerText = 0
+    }
 
+    if (planning.length != 0) {
+      let planningNum = planning[0].entries.length
+      let planningAnim = new CountUp("planning-info", 0, planningNum, 0, 2, {useGrouping: false, useEasing: true})
+      planningAnim.start();
+    } else {
+      infoDiv.children[1].children[0].innerText = 0
+    }
 
-  if (completed.length != 0) {
-    let completedNum = completed[0].entries.length
-    let completedAnim = new CountUp("completed-info", 0, completedNum, 0, 2, {useGrouping: false, useEasing: true})
-    completedAnim.start()
-  } else {
-    infoDiv.children[0].children[0].innerText = 0
-  }
+    if (watching.length != 0) {
+      let watchingNum = watching[0].entries.length
+      let watchingAnim = new CountUp("watching-info", 0, watchingNum, 0, 2, {useGrouping: false, useEasing: true})
+      watchingAnim.start()
+    } else {
+      infoDiv.children[2].children[0].innerText = 0
+    }
+    
+    let hoursAnim = new CountUp('hour-info', 0, Math.floor(data.data.User.statistics.anime.minutesWatched/60), 0, 2, {useGrouping: false, useEasing: true});
+    let episodesAnim = new CountUp('episode-info', 0, data.data.User.statistics.anime.episodesWatched, 0, 2, {useGrouping: false, useEasing: true});
+    let scoreAnim = new CountUp('score-info', 0, data.data.User.statistics.anime.meanScore, 1, 2, {useGrouping: false, useEasing: true});
 
-  if (planning.length != 0) {
-    let planningNum = planning[0].entries.length
-    let planningAnim = new CountUp("planning-info", 0, planningNum, 0, 2, {useGrouping: false, useEasing: true})
-    planningAnim.start();
-  } else {
-    infoDiv.children[1].children[0].innerText = 0
-  }
-
-  if (watching.length != 0) {
-    let watchingNum = watching[0].entries.length
-    let watchingAnim = new CountUp("watching-info", 0, watchingNum, 0, 2, {useGrouping: false, useEasing: true})
-    watchingAnim.start()
-  } else {
-    infoDiv.children[2].children[0].innerText = 0
-  }
+    if (!hoursAnim.error) {
+      hoursAnim.start();
+    } else {
+     console.error(hoursAnim.error);
+    }
   
-  let hoursAnim = new CountUp('hour-info', 0, Math.floor(data.data.User.statistics.anime.minutesWatched/60), 0, 2, {useGrouping: false, useEasing: true});
-  let episodesAnim = new CountUp('episode-info', 0, data.data.User.statistics.anime.episodesWatched, 0, 2, {useGrouping: false, useEasing: true});
-  let scoreAnim = new CountUp('score-info', 0, data.data.User.statistics.anime.meanScore, 1, 2, {useGrouping: false, useEasing: true});
+    if (!episodesAnim.error) {
+      episodesAnim.start();
+    } else {
+     console.error(episodesAnim.error);
+    }
+  
+    if (!scoreAnim.error) {
+      scoreAnim.start();
+    } else {
+     console.error(scoreAnim.error);
+    }
 
+    infoDiv.classList.remove('start-animation')
+  } 
+  else {
+    if (completed.length != 0) {
+      let completedNum = completed[0].entries.length
+      document.querySelector('#completed-info').innerText = completedNum
+    } else {
+      document.querySelector('#completed-info').innerText = 0
+    }
 
+    if (planning.length != 0) {
+      let planningNum = planning[0].entries.length
+      document.querySelector('#planning-info') = planningNum
+    } else {
+      document.querySelector('#planning-info') = 0
+    }
 
-
-
-
-
-  if (!hoursAnim.error) {
-    hoursAnim.start();
-  } else {
-   console.error(hoursAnim.error);
+    if (watching.length != 0) {
+      let watchingNum = watching[0].entries.length
+      document.querySelector('#watching-info').innerText = watchingNum
+    } else {
+      document.querySelector('#watching-info').innerText = 0
+    }
+    
+    document.querySelector('#hour-info').innerText(data.data.User.statistics.anime.minutesWatched/60)
+    document.querySelector('#episode-info').innerText(data.data.User.statistics.anime.episodesWatched)
+    document.querySelector('#score-info').innerText(data.data.User.statistics.anime.meanScore)
   }
+}
+function removePreloader() {
+  let preloaderEl = document.querySelector('.preloader-container')
 
-  if (!episodesAnim.error) {
-    episodesAnim.start();
-  } else {
-   console.error(episodesAnim.error);
-  }
+  preloaderEl.classList.add('active')
+  setTimeout(() => document.body.style.overflow = 'inherit', 500)
+  setTimeout(() => preloaderEl.style.display = 'none', 1000)
 
-  if (!scoreAnim.error) {
-    scoreAnim.start();
+}
+function gettingTheHostNameFromURL(websiteURL) {
+  var getTheHostName;
+  if (websiteURL.indexOf("//") > -1) {
+     getTheHostName = websiteURL.split('/')[2];
   } else {
-   console.error(scoreAnim.error);
+     getTheHostName = websiteURL.split('/')[0];
   }
+  getTheHostName = getTheHostName.split(':')[0];
+  getTheHostName = getTheHostName.split('?')[0];
+  return getTheHostName;
 }
 
 
@@ -297,7 +353,7 @@ function handleInfo(data) {
 
 
 
-
+document.querySelector('.name').innerText = userName
 
 // avatar and banner
 fetch(url, userOptions).then(handleResponse).then(handleUser).catch(handleError);
@@ -308,3 +364,9 @@ fetch(url, mediaOptions).then(handleResponse).then(handleList).catch(handleError
 // info section
 fetch(url, infoOptions).then(handleResponse).then(handleInfo).catch(handleError);
 
+
+setTimeout(() => removePreloader(), 5000)
+
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+}
