@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Anime Stats</title>
-    <link rel="stylesheet" href="style.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;700&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="assets/index-style.min.css">
 </head>
 <body>
     <div class="preloader-container">
@@ -42,7 +43,101 @@
         </div>
     </div>
 
-    <div class="content">
+    <div class="content desc sort-recent">
+        <div class="settings-bar">
+
+            <div class="sort-container">
+                <div id="sort-btn-icon">
+                    <div id="sort-btn-icon-mob">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 401.998 401.998">
+                            <path d="M73.092,164.452h255.813c4.949,0,9.233-1.807,12.848-5.424c3.613-3.616,5.427-7.898,5.427-12.847
+                                c0-4.949-1.813-9.229-5.427-12.85L213.846,5.424C210.232,1.812,205.951,0,200.999,0s-9.233,1.812-12.85,5.424L60.242,133.331
+                                c-3.617,3.617-5.424,7.901-5.424,12.85c0,4.948,1.807,9.231,5.424,12.847C63.863,162.645,68.144,164.452,73.092,164.452z"/>
+                            <path d="M328.905,237.549H73.092c-4.952,0-9.233,1.808-12.85,5.421c-3.617,3.617-5.424,7.898-5.424,12.847
+                                c0,4.949,1.807,9.233,5.424,12.848L188.149,396.57c3.621,3.617,7.902,5.428,12.85,5.428s9.233-1.811,12.847-5.428l127.907-127.906
+                                c3.613-3.614,5.427-7.898,5.427-12.848c0-4.948-1.813-9.229-5.427-12.847C338.139,239.353,333.854,237.549,328.905,237.549z"/>
+                        </svg>
+                    </div>
+                    <div id="sort-btn-icon-desk" class="settings-bar-icon">
+                        <p>Sort</p>
+                        <div id="sort-svg-container">
+                            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 612 612" class="active">
+                                <path d="M604.501,134.782c-9.999-10.05-26.222-10.05-36.221,0L306.014,422.558L43.721,134.782
+                                c-9.999-10.05-26.223-10.05-36.222,0s-9.999,26.35,0,36.399l279.103,306.241c5.331,5.357,12.422,7.652,19.386,7.296
+                                c6.988,0.356,14.055-1.939,19.386-7.296l279.128-306.268C614.5,161.106,614.5,144.832,604.501,134.782z"></path>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612">
+                                <path d="M604.501,440.509L325.398,134.956c-5.331-5.357-12.423-7.627-19.386-7.27c-6.989-0.357-14.056,1.913-19.387,7.27
+                                L7.499,440.509c-9.999,10.024-9.999,26.298,0,36.323s26.223,10.024,36.222,0l262.293-287.164L568.28,476.832
+                                c9.999,10.024,26.222,10.024,36.221,0C614.5,466.809,614.5,450.534,604.501,440.509z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div id="sort-options">
+                    <div class="option-container">
+                        <h3 id="sort-recent" class="sort-option-btn">Most Recent</h3>
+                        <h3 id="sort-alphabet" class="sort-option-btn">Alphabetically</h3>
+                        <h3 id="sort-rating" class="sort-option-btn">Ratings</h3>
+                        <h3 id="sort-popularity" class="sort-option-btn">Popularity</h3>
+                    </div>
+                </div>
+                <div class="sort-mob-back"></div>
+            </div>
+
+            <div class="order-container">
+                <div id="order-btn-icon" class="settings-bar-icon">
+                    <p>Order</p>
+                    <div id="order-svg-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="active">
+                            <path d="M374.108,373.328c-7.829-7.792-20.492-7.762-28.284,0.067L276,443.557V20c0-11.046-8.954-20-20-20
+                                c-11.046,0-20,8.954-20,20v423.558l-69.824-70.164c-7.792-7.829-20.455-7.859-28.284-0.067c-7.83,7.793-7.859,20.456-0.068,28.285
+                                l104,104.504c0.006,0.007,0.013,0.012,0.019,0.018c7.792,7.809,20.496,7.834,28.314,0.001c0.006-0.007,0.013-0.012,0.019-0.018
+                                l104-104.504C381.966,393.785,381.939,381.121,374.108,373.328z"/>
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                            <path d="M374.176,110.386l-104-104.504c-0.006-0.006-0.013-0.011-0.019-0.018c-7.818-7.832-20.522-7.807-28.314,0.002
+                            c-0.006,0.006-0.013,0.011-0.019,0.018l-104,104.504c-7.791,7.829-7.762,20.493,0.068,28.285
+                            c7.829,7.792,20.492,7.762,28.284-0.067L236,68.442V492c0,11.046,8.954,20,20,20c11.046,0,20-8.954,20-20V68.442l69.824,70.162
+                            c7.792,7.829,20.455,7.859,28.284,0.067C381.939,130.878,381.966,118.214,374.176,110.386z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="view-container">
+                <div id="view-btn-icon" class="settings-bar-icon">
+                    <p>View</p>
+                    <div id="view-svg-container">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 271.673 271.673" class="active">
+                            <path d="M114.939,0H10.449C4.678,0,0,4.678,0,10.449v104.49c0,5.771,4.678,10.449,10.449,10.449h104.49
+                                c5.771,0,10.449-4.678,10.449-10.449V10.449C125.388,4.678,120.71,0,114.939,0z"/>
+                            <path d="M261.224,0h-104.49c-5.771,0-10.449,4.678-10.449,10.449v104.49c0,5.771,4.678,10.449,10.449,10.449h104.49
+                                c5.771,0,10.449-4.678,10.449-10.449V10.449C271.673,4.678,266.995,0,261.224,0z"/>
+                            <path d="M114.939,146.286H10.449C4.678,146.286,0,150.964,0,156.735v104.49c0,5.771,4.678,10.449,10.449,10.449h104.49
+                                c5.771,0,10.449-4.678,10.449-10.449v-104.49C125.388,150.964,120.71,146.286,114.939,146.286z"/>
+                            <path d="M261.224,146.286h-104.49c-5.771,0-10.449,4.678-10.449,10.449v104.49c0,5.771,4.678,10.449,10.449,10.449h104.49
+                                c5.771,0,10.449-4.678,10.449-10.449v-104.49C271.673,150.964,266.995,146.286,261.224,146.286z"/>
+                        </svg>
+                
+
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 189 189">
+                            <path d="M181.5,0H7.5C3.358,0,0,3.357,0,7.5v174c0,4.143,3.358,7.5,7.5,7.5h174c4.142,0,7.5-3.357,7.5-7.5V7.5
+                                C189,3.357,185.642,0,181.5,0z M63.484,150.688c0,4.143-3.358,7.5-7.5,7.5h-21.75c-4.142,0-7.5-3.357-7.5-7.5v-21.75
+                                c0-4.143,3.358-7.5,7.5-7.5h21.75c4.142,0,7.5,3.357,7.5,7.5V150.688z M63.484,102.43c0,4.143-3.358,7.5-7.5,7.5h-21.75
+                                c-4.142,0-7.5-3.357-7.5-7.5V80.68c0-4.143,3.358-7.5,7.5-7.5h21.75c4.142,0,7.5,3.357,7.5,7.5V102.43z M63.484,54.172
+                                c0,4.143-3.358,7.5-7.5,7.5h-21.75c-4.142,0-7.5-3.357-7.5-7.5v-21.75c0-4.143,3.358-7.5,7.5-7.5h21.75c4.142,0,7.5,3.357,7.5,7.5
+                                V54.172z M161.109,147.313H88.833c-4.142,0-7.5-3.357-7.5-7.5s3.358-7.5,7.5-7.5h72.276c4.142,0,7.5,3.357,7.5,7.5
+                                S165.251,147.313,161.109,147.313z M161.109,99.055H88.833c-4.142,0-7.5-3.357-7.5-7.5s3.358-7.5,7.5-7.5h72.276
+                                c4.142,0,7.5,3.357,7.5,7.5S165.251,99.055,161.109,99.055z M161.109,50.797H88.833c-4.142,0-7.5-3.357-7.5-7.5s3.358-7.5,7.5-7.5
+                                h72.276c4.142,0,7.5,3.357,7.5,7.5S165.251,50.797,161.109,50.797z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
         <div id="watching" class="show-list"></div>
         <div id="completed" class="show-list active"></div>
         <div id="planning" class="show-list"></div>
@@ -52,16 +147,15 @@
         <h2>Made with <span>♥</span> by <a href="https://github.com/fire-walker" target="_blank">fire-walker</a></h2>
     </div>
 
+
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.9.0/countUp.min.js"></script>
-    <script src="script.js" type="text/javascript"></script>
+    
+    <script src="assets/index-script.js" type="text/javascript"></script>
 </body>
 </html>
 
 
 <!-- ================== TODO ================= -->
-<!-- add a sorting thing with a url sort parameter -->
-<!-- make a user search page -->
-<!-- rediret to search page when no user is given -->
-<!-- make a manga version -->
-<!-- make a sort button -->
-<!-- make an anime and manga switch -->
+<!-- desktop cover image hover info - format/rating -->
