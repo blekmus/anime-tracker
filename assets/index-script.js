@@ -461,20 +461,35 @@ function settingsBarSort() {
               sortPara.classList.add('active')
             }
             sortPara.innerText = e.target.innerText
+
+            e.target.classList.add('active')
             
-            let sortOptions = ['sort-recent', 'sort-alphabet', 'sort-popularity', 'sort-rating']
+            let sortOptionNames = ['sort-recent', 'sort-alphabet', 'sort-popularity', 'sort-rating']
             let content = document.querySelector('.content')
-            sortOptions.forEach(option => {
+            sortOptionNames.forEach(option => {
               if (content.classList.contains(option)) {
                 content.classList.remove(option)
               }
             })
 
+            let sortOptionContainer = document.querySelector('.option-container')
+            let sortOptions = sortOptionContainer.querySelectorAll('.sort-option-btn')
+            sortOptions.forEach(option => {
+              if (option.classList.contains('active')) {
+                option.classList.remove('active')
+
+                if (option.id == e.target.id) {
+                  option.classList.add('active')
+                }
+              } else if (option.id == e.target.id) {
+                option.classList.add('active')
+              }
+            })
+
+
             let type = e.target.id
             content.classList.add(type)
             fetchSortedLists(type)
-  
-            console.log('fetch')
           })
         })
       
@@ -501,15 +516,29 @@ function settingsBarSort() {
 
   sortOptions.forEach(option => {
     option.addEventListener('click', (e) => {
-      let sortOptions = ['sort-recent', 'sort-alphabet', 'sort-popularity', 'sort-rating']
+      let sortOptionNames = ['sort-recent', 'sort-alphabet', 'sort-popularity', 'sort-rating']
       let content = document.querySelector('.content')
 
-      sortOptions.forEach(option => {
+      sortOptionNames.forEach(option => {
         if (content.classList.contains(option)) {
           content.classList.remove(option)
         }
       })
     
+      let sortOptionContainer = document.querySelector('.option-container')
+      let sortOptions = sortOptionContainer.querySelectorAll('.sort-option-btn')
+      sortOptions.forEach(option => {
+        if (option.classList.contains('active')) {
+          option.classList.remove('active')
+
+          if (option.id == e.target.id) {
+            option.classList.add('active')
+          }
+        } else if (option.id == e.target.id) {
+          option.classList.add('active')
+        }
+      })
+
       let type = e.target.id
       content.classList.add(type)
       fetchSortedLists(type)
