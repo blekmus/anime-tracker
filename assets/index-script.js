@@ -82,7 +82,17 @@ function handleError(error) {
 }
 
 
+
+
+
+
+
 function showElementCreate(show) {
+  // main div
+  let showElement = document.createElement('div')
+  showElement.setAttribute('class', 'show-list-item')
+
+  // main image anchor
   let showCoverImg = document.createElement('a')
   showCoverImg.setAttribute('class', 'image')
   showCoverImg.setAttribute('href', show.media.siteUrl)
@@ -90,20 +100,123 @@ function showElementCreate(show) {
   showCoverImg.appendChild(document.createElement('img'))
   showCoverImg.children[0].setAttribute('src', show.media.coverImage.large)
 
-  let showTitle = document.createElement('a')
-  showTitle.setAttribute('class', 'title')
-  showTitle.setAttribute('href', show.media.siteUrl)
-  showTitle.setAttribute('target', '_blank')
+  // main info grid 
+  let showInfoGrid = document.createElement('div')
+  showInfoGrid.setAttribute('class', 'info-grid')
+
+  // info grid title
+  let showInfoGridTitle = document.createElement('a')
+  showInfoGridTitle.setAttribute('class', 'title')
+  showInfoGridTitle.setAttribute('href', show.media.siteUrl)
+  showInfoGridTitle.setAttribute('target', '_blank')
 
   if (show.media.title.english == null) {
-    showTitle.innerText = show.media.title.romaji
+    showInfoGridTitle.innerText = show.media.title.romaji
   } else {
-    showTitle.innerText = show.media.title.english
+    showInfoGridTitle.innerText = show.media.title.english
   }
 
-  let showElement = document.createElement('div')
+  showInfoGrid.appendChild(showInfoGridTitle)
+
+
+
+
+  // main info list
+  let showInfoList = document.createElement('div')
+  showInfoList.setAttribute('class', 'info-list')
+
+
+  // info list header 
+  let showInfoListHeader = document.createElement('div')
+  showInfoListHeader.setAttribute('class', 'info-header')
+
+  let showInfoListHeaderTitle = document.createElement('h1')
+  showInfoListHeaderTitle.setAttribute('class', 'title')
+
+  if (show.media.title.english == null) {
+    showInfoListHeaderTitle.innerText = show.media.title.romaji
+  } else {
+    showInfoListHeaderTitle.innerText = show.media.title.english
+  }
+
+  let showInfoListHeaderStudio = document.createElement('a')
+  showInfoListHeaderStudio.setAttribute('class', 'studio')
+  showInfoListHeaderStudio.setAttribute('target', '_blank')
+
+  show.media.studios.edges.forEach(studio => {
+    if (studio.isMain == true) {
+      showInfoListHeaderStudio.innerText = studio.node.name
+      showInfoListHeaderStudio.setAttribute('href', studio.node.siteUrl)
+    }
+  })
+
+  showInfoListHeader.appendChild(showInfoListHeaderTitle)
+  showInfoListHeader.appendChild(showInfoListHeaderStudio)
+  showInfoList.appendChild(showInfoListHeader)
+
+
+  // info list footer
+  let showInfoListFooter = document.createElement('div')
+  showInfoListFooter.setAttribute('class', 'info-footer')
+
+  let showInfoListFooterRating = document.createElement('div')
+  showInfoListFooterRating.setAttribute('class', 'rating')
+  showInfoListFooterRating.innerHTML = "<svg viewBox='0 0 34 33' xmlns='http://www.w3.org/2000/svg'><path d='M16.9049 2.2927C16.9348 2.20057 17.0652 2.20057 17.0951 2.29271L20.5698 12.9866C20.5832 13.0278 20.6216 13.0557 20.6649 13.0557H31.9091C32.006 13.0557 32.0463 13.1797 31.9679 13.2366L22.8711 19.8458C22.8361 19.8713 22.8214 19.9164 22.8348 19.9576L26.3095 30.6516C26.3394 30.7437 26.2339 30.8203 26.1556 30.7634L17.0588 24.1542C17.0237 24.1287 16.9763 24.1287 16.9412 24.1542L7.84443 30.7634C7.76605 30.8203 7.66061 30.7437 7.69054 30.6516L11.1652 19.9576C11.1786 19.9164 11.1639 19.8713 11.1289 19.8458L2.03209 13.2366C1.95371 13.1797 1.99399 13.0557 2.09086 13.0557H13.3351C13.3784 13.0557 13.4168 13.0278 13.4302 12.9866L16.9049 2.2927Z'/></svg>"
+  
+  let footerRatingScore = document.createElement('h2')
+  footerRatingScore.innerText = show.score
+  showInfoListFooterRating.appendChild(footerRatingScore)
+
+  let showInfoListFooterSeperator = document.createElement('div')
+  showInfoListFooterSeperator.setAttribute('class', 'seperator')
+
+  let showInfoListFooterMore = document.createElement('div')
+  showInfoListFooterMore.setAttribute('class', 'more-info')
+
+  let footerMoreStatus = document.createElement('h2')
+  footerMoreStatus.setAttribute('class', 'status')
+  footerMoreStatus.innerText = show.media.status.toLowerCase()
+
+  let footerMoreFormat = document.createElement('h2')
+  footerMoreFormat.setAttribute('class', 'format')
+
+  if (show.media.format.length > 3) {
+    let mediaFormat = show.media.format.split('_').join(' ')
+
+    if (mediaFormat.toLowerCase().startsWith('tv short')) {
+      footerMoreFormat.innerText = 'TV Short'
+    } else {
+      footerMoreFormat.innerText = mediaFormat.toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())))
+    }
+  } else {
+    footerMoreFormat.innerText = show.media.format
+  }
+
+
+
+
+
+  let footerMoreYear = document.createElement('h2')
+  footerMoreYear.setAttribute('class', 'year')
+  if (show.media.seasonYear == null) {
+    footerMoreYear.innerText = '-'
+  } else {
+    footerMoreYear.innerText = show.media.seasonYear
+  }
+
+  showInfoListFooterMore.appendChild(footerMoreFormat)
+  showInfoListFooterMore.appendChild(footerMoreStatus)
+  showInfoListFooterMore.appendChild(footerMoreYear)
+
+  showInfoListFooter.appendChild(showInfoListFooterRating)
+  showInfoListFooter.appendChild(showInfoListFooterSeperator)
+  showInfoListFooter.appendChild(showInfoListFooterMore)
+
+  showInfoList.appendChild(showInfoListFooter)
+
   showElement.appendChild(showCoverImg)
-  showElement.appendChild(showTitle)
+  showElement.appendChild(showInfoGrid)
+  showElement.appendChild(showInfoList)
 
   return showElement
 }
@@ -282,6 +395,7 @@ function fetchSortedLists(type) {
         lists {
           name
           entries {
+            score
             media {
               coverImage {
                 large
@@ -291,6 +405,18 @@ function fetchSortedLists(type) {
                 english
               }
               siteUrl
+              format
+              status
+              seasonYear
+              studios {
+                edges {
+                  isMain
+                  node {
+                    siteUrl
+                    name
+                  }
+                }
+              }
             }
           }
         }
@@ -302,6 +428,7 @@ function fetchSortedLists(type) {
       lists {
         name
         entries {
+          score
           media {
             coverImage {
               large
@@ -311,6 +438,18 @@ function fetchSortedLists(type) {
               english
             }
             siteUrl
+            format
+            status
+            seasonYear
+            studios {
+              edges {
+                isMain 
+                node {
+                  name
+                  siteUrl
+                }
+              }
+            }
           }
         }
       }
@@ -322,6 +461,7 @@ function fetchSortedLists(type) {
       lists {
         name
         entries {
+          score
           media {
             coverImage {
               large
@@ -331,6 +471,18 @@ function fetchSortedLists(type) {
               english
             }
             siteUrl
+            format
+            status
+            seasonYear 
+            studios {
+              edges {
+                isMain
+                node {
+                  name
+                  siteUrl
+                }
+              }
+            }
           }
         }
       }
@@ -595,6 +747,7 @@ function settingsBarOrder() {
 }
 function settingsBarView() {
   let viewContainer = document.querySelector('.view-container')
+  let content = document.querySelector('.content')
 
   viewContainer.addEventListener('click', function () {
     let viewSvgs = viewContainer.querySelector('#view-svg-container').children
@@ -607,10 +760,16 @@ function settingsBarView() {
       if (!viewPara.classList.contains('active')) {
         viewPara.classList.add('active')
       }
-    } else {
+      content.classList.add('list')
+      content.classList.remove('grid')
+    } 
+    
+    else {
       viewSvgs[1].classList.remove('active')
       viewSvgs[0].classList.add('active')
       viewContainer.getElementsByTagName('p')[0].innerText = 'Grid'
+      content.classList.remove('list')
+      content.classList.add('grid')
     }
   })
 }
@@ -724,8 +883,8 @@ fetchSortedLists('sort-recent')
 btnListner()  
 
 // remove preloader
-setTimeout(() => removePreloader(), 4000)
-// removePreloader()
+// setTimeout(() => removePreloader(), 4000)
+removePreloader()
 
 // settings bar btns
 settingsBarListner()
