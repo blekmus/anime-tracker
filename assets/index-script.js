@@ -4,7 +4,6 @@ var userName = urlParams.get('user')
 
 // if no user is given, go to search bar
 if (userName == null) {
-  // window.location = '/?user=blekmus';
   window.location = '/search.html';
 }
 
@@ -118,9 +117,6 @@ function showElementCreate(show) {
 
   showInfoGrid.appendChild(showInfoGridTitle)
 
-
-
-
   // main info list
   let showInfoList = document.createElement('div')
   showInfoList.setAttribute('class', 'info-list')
@@ -191,10 +187,6 @@ function showElementCreate(show) {
   } else {
     footerMoreFormat.innerText = show.media.format
   }
-
-
-
-
 
   let footerMoreYear = document.createElement('h2')
   footerMoreYear.setAttribute('class', 'year')
@@ -883,8 +875,7 @@ fetchSortedLists('sort-recent')
 btnListner()  
 
 // remove preloader
-// setTimeout(() => removePreloader(), 4000)
-removePreloader()
+setTimeout(() => removePreloader(), 4000)
 
 // settings bar btns
 settingsBarListner()
