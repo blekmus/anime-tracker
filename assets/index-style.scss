@@ -626,7 +626,7 @@ body {
 }
 
 
-// Desktop-Tablet
+// Desktop - Tablet
 @media (min-width: 800px) and (max-width: 860px) {
     .content {
         .settings-bar {
@@ -1170,6 +1170,81 @@ body {
 
                             h2 {
                                 font-size: 17px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Small - Mobile
+@media (max-width: 550px) {
+    .content {
+        &.list .show-list {
+            .show-list-item {
+                height: 120px;
+
+                .image {
+                    width: 120px;
+                }
+
+                .info-list {
+                    position: relative;
+        
+                    .info-header {
+                        height: 70%;
+
+                        padding-right: 40px;
+                        padding-left: 8px;
+
+                        .title {
+                            font-size: 16px;
+                            font-weight: 700;
+                            line-height: 18px;
+                        }
+
+                        .studio {
+                            font-size: 14px;
+                            overflow: hidden;
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 1;
+                        }
+                    }
+
+                    .info-footer {
+                        height: 30%;
+
+                        .rating {
+                            position: absolute;
+                            top: 10px;
+                            right: 0;
+                            flex-direction: column;
+                            width: 20%;
+
+                            svg {
+                                height: 13px;
+                            }
+        
+                            h2 {
+                                margin: 3px 0 0 0;
+                                font-size: 13px;
+
+                            }
+                        }
+        
+                        .seperator {
+                            display: none;
+                        }
+        
+                        .more-info {
+                            width: 100%;
+
+                            h2 {
+                                font-size: 15px;
+                                font-weight: 600;
                             }
                         }
                     }
