@@ -216,6 +216,10 @@ body {
         .tab-image {
             display: none;
         }
+
+        // .mob-image {
+        //     display: none;
+        // }
     }
 
 }
@@ -240,6 +244,14 @@ body {
         a {
             text-decoration: none;
             color: #d878cb;
+        }
+
+        span {
+            svg {
+                fill: #3db4f2;
+                height: 11px;
+                padding: 0 1px;
+            }
         }
     }
 }
@@ -348,8 +360,10 @@ body {
 // Mobile
 @media (max-width: 640px) {
     .content {
-        margin: 20% 0 0 0;
+        text-align: center;
+        margin: 5vh 0 0 0;
         width: 100%;
+        max-width: none;
 
         .header-group {
             width: 90%;
@@ -368,6 +382,7 @@ body {
 
             .line {
                 width: 50%;
+                margin: 0 auto;
                 margin-top: 15px;
             }
         }
@@ -375,23 +390,27 @@ body {
         .input-group {
             width: 90%;
             margin: 0 auto;
-            margin-top: 80px;
+            margin-top: 10vh;
 
             .search-desc {
-                text-align: left;
+                text-align: center;
             }
 
             .search-bar {
+                justify-content: center;
+
                 input {
                     width: 80%;
                     font-size: 19px;
                     padding: 10px 10px 9px 10px;
+                    z-index: 2;
                 }
 
                 .search-icon {
                     height: 44px;
                     width: 44px;
                     padding: 10px;
+                    z-index: 2;
                 }
             }            
         }
@@ -399,21 +418,32 @@ body {
         .image-group {
             .desk-image {
                 display: none;
-            }
-
+            }   
+            
+            background-image: url("images/girl.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 250px;
+            display: block;
+            margin-top: 3vh;
+            background-size: contain;
+            
             // .mob-image {
-            //     bottom: 10%;
+            //     bottom: 60px;
             //     display: flex;
             //     position: absolute;
             //     width: 100%;
             //     left: 0;
+            //     bottom: 13%;
             //     align-content: center;
             //     justify-content: center;
+            //     background-image: url("assets");
 
             //     img {
             //         width: 200px;
             //     }
-            // }            
+            // }  
         }
     }
 

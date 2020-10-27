@@ -622,6 +622,14 @@ body {
             text-decoration: none;
             color: #d878cb;
         }
+
+        span {
+            svg {
+                fill: #3db4f2;
+                height: 11px;
+                padding: 0 1px;
+            }
+        }
     }
 }
 
