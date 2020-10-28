@@ -10,7 +10,6 @@ body {
 }
 
 .preloader-container {
-
     $count: 10;
     $time: 2; //in seconds
     $size: 60;
@@ -423,7 +422,7 @@ body {
             padding: 10px 10px 5px 10px;
             border-radius: 4px;
             position: relative;
-            transition: 0.14s ease;
+            transition: 0.14s ease color;
             box-shadow: 0 14px 30px rgba(0,5,15,.15),0 4px 4px rgba(0,5,15,.05);
 
             &:hover {
@@ -1029,11 +1028,11 @@ body {
                     .option-container {
                         position: relative;
                         margin: auto;
-                        height: 40%;
-                        width: 70%;
+                        height: 35%;
+                        width: 80%;
                         max-width: 350px;
                         background: #212a37;
-                        border-radius: 8px;
+                        border-radius: 4px;
 
                         display: flex;
                         align-items: center;
@@ -1041,18 +1040,30 @@ body {
                         flex-direction: column;
                         z-index: 10;
 
+                        &:before {
+                            content: 'Sort';
+                            position: absolute;
+                            left: 5px;
+                            top: -35px;
+                            font-weight: 700;
+                            font-family: sans-serif;
+                            font-size: 20px;
+                            color: white;
+                        }
+
                         h3 {
                             border: none;
                             padding: 0 20px;
                             width: 100%;
                             border-radius: 4px;
                             color: #6c7784;
-                            font-size: 22px;
+                            font-size: 20px;
                             cursor: pointer;
                             transition: 0.15s;
                             font-family: sans-serif;
                             text-align: left;
                             position: relative;
+                            font-weight: 400;
 
                             &.active:after {
                                 background-color: #3db4f2;
@@ -1230,7 +1241,7 @@ body {
                             top: 10px;
                             right: 0;
                             flex-direction: column;
-                            width: 20%;
+                            width: 12%;
 
                             svg {
                                 height: 13px;
