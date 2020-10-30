@@ -3,6 +3,7 @@ var userName = urlParams.get('user')
 var urlSortOrder = urlParams.get('order')
 var urlSortOption = urlParams.get('sort')
 var urlView = urlParams.get('view')
+var urlSelect = urlParams.get('select')
 
 
 // if no user is given, go to search bar
@@ -221,9 +222,11 @@ function btnListner() {
   let btns = document.querySelectorAll('.btn')
   let content = document.querySelector('.content')
   let infoClick = document.getElementById('info')
-  
+
   btns.forEach(btn => {
     btn.addEventListener('click', function (e) {
+      let url = new URL(window.location)
+
       if (!e.target.classList.contains('active')) {
         // retract info section
         if (infoClick.classList.contains('active')) {
@@ -249,6 +252,10 @@ function btnListner() {
         }
 
         e.target.classList.add('active')
+
+        url.searchParams.set('select', e.target.id)
+        history.pushState({}, null, url)
+
       }
     })
   })
@@ -636,6 +643,19 @@ function settingsBarSort() {
               }
             })
 
+            let tippyOptionContainer = document.querySelector('.tippy-content')
+            let tippySortOptions = tippyOptionContainer.querySelectorAll('.sort-option-btn')
+            tippySortOptions.forEach(option => {
+              if (option.classList.contains('active')) {
+                option.classList.remove('active')
+
+                if (option.id == e.target.id) {
+                  option.classList.add('active')
+                }
+              } else if (option.id == e.target.id) {
+                option.classList.add('active')
+              }
+            })
 
             let type = e.target.id
             content.classList.add(type)
@@ -948,6 +968,22 @@ else {
   document.querySelector('.content').classList.add('desc')
   document.querySelector('#order-svg-container').children[0].classList.add('active')
 } 
+
+// content selector
+if (urlSelect == 'watching') {
+  document.querySelector('.btn-container').querySelector('#watching').classList.add('active')
+  document.querySelector('.content').querySelector('#watching').classList.add('active')
+} 
+else if (urlSelect == 'planning') {
+  document.querySelector('.btn-container').querySelector('#planning').classList.add('active')
+  document.querySelector('.content').querySelector('#planning').classList.add('active')
+} 
+else {
+  document.querySelector('.btn-container').querySelector('#completed').classList.add('active')
+  document.querySelector('.content').querySelector('#completed').classList.add('active')
+}
+
+
 
 // selectcard btns
 btnListner()  
