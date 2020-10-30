@@ -1,11 +1,16 @@
-const urlParams = new URLSearchParams(window.location.search)
+let urlParams = new URLSearchParams(window.location.search)
 var userName = urlParams.get('user')
+var urlSortOrder = urlParams.get('order')
+var urlSortOption = urlParams.get('sort')
+var urlView = urlParams.get('view')
 
 
 // if no user is given, go to search bar
 if (userName == null) {
   window.location = '/search.html';
 }
+
+
 
 var url = 'https://graphql.anilist.co'
 var variableDefault = {
@@ -598,6 +603,7 @@ function settingsBarSort() {
           listbtn.addEventListener('click', function _listner(e) {
             let sortContainer = document.querySelector('.sort-container')
             let sortPara = sortContainer.querySelector('p')
+            let url = new URL(window.location)
 
             sortTippyInstance.hide()
 
@@ -633,6 +639,10 @@ function settingsBarSort() {
 
             let type = e.target.id
             content.classList.add(type)
+
+            url.searchParams.set('sort', type)
+            history.pushState({}, null, url)
+
             fetchSortedLists(type)
           })
         })
@@ -662,6 +672,7 @@ function settingsBarSort() {
     option.addEventListener('click', (e) => {
       let sortOptionNames = ['sort-recent', 'sort-alphabet', 'sort-popularity', 'sort-rating']
       let content = document.querySelector('.content')
+      let url = new URL(window.location)
 
       sortOptionNames.forEach(option => {
         if (content.classList.contains(option)) {
@@ -685,6 +696,10 @@ function settingsBarSort() {
 
       let type = e.target.id
       content.classList.add(type)
+
+      url.searchParams.set('sort', type)
+      history.pushState({}, null, url)
+
       fetchSortedLists(type)
     })
   })
@@ -696,12 +711,15 @@ function settingsBarOrder() {
   orderContainer.addEventListener('click', function () {
     let orderSvgs = orderContainer.querySelector('#order-svg-container').children
     let orderPara = orderContainer.getElementsByTagName('p')[0]
+    let url = new URL(window.location)
 
     if (orderSvgs[0].classList.contains('active')) {
       orderSvgs[0].classList.remove('active')
       orderSvgs[1].classList.add('active')
       orderContainer.getElementsByTagName('p')[0].innerText = 'Ascending'
       content.classList.remove('desc')
+      url.searchParams.set('order', 'asc')
+      history.pushState({}, null, url)
 
       if (!orderPara.classList.contains('active')) {
         orderPara.classList.add('active')
@@ -723,6 +741,12 @@ function settingsBarOrder() {
       orderSvgs[0].classList.add('active')
       orderContainer.getElementsByTagName('p')[0].innerText = 'Descending'
       content.classList.add('desc')
+      url.searchParams.set('order', 'desc')
+      history.pushState({}, null, url);
+
+      if (!orderPara.classList.contains('active')) {
+        orderPara.classList.add('active')
+      }
 
       if (content.classList.contains('sort-recent')) {
         fetchSortedLists('sort-recent')
@@ -744,24 +768,36 @@ function settingsBarView() {
   viewContainer.addEventListener('click', function () {
     let viewSvgs = viewContainer.querySelector('#view-svg-container').children
     let viewPara = viewContainer.getElementsByTagName('p')[0]
+    let url = new URL(window.location)
 
     if (viewSvgs[0].classList.contains('active')) {
       viewSvgs[0].classList.remove('active')
       viewSvgs[1].classList.add('active')
       viewContainer.getElementsByTagName('p')[0].innerText = 'List'
+
       if (!viewPara.classList.contains('active')) {
         viewPara.classList.add('active')
       }
+
       content.classList.add('list')
       content.classList.remove('grid')
+      url.searchParams.set('view', 'list')
+      history.pushState({}, null, url)
     } 
     
     else {
       viewSvgs[1].classList.remove('active')
       viewSvgs[0].classList.add('active')
       viewContainer.getElementsByTagName('p')[0].innerText = 'Grid'
+
+      if (!viewPara.classList.contains('active')) {
+        viewPara.classList.add('active')
+      }
+
       content.classList.remove('list')
       content.classList.add('grid')
+      url.searchParams.set('view', 'grid')
+      history.pushState({}, null, url)
     }
   })
 }
@@ -868,8 +904,50 @@ fetch(url, userOptions).then(handleResponse).then(handleUser).catch(handleError)
 // info section
 fetch(url, infoOptions).then(handleResponse).then(handleInfo).catch(handleError)
 
-// content list
-fetchSortedLists('sort-recent')
+// content sort
+let urlSortOptionValues = ['sort-recent', 'sort-alphabet', 'sort-popularity', 'sort-rating']
+if (urlSortOption != null) {
+  urlSortOptionValues.forEach(value => {
+    if (value == urlSortOption) {
+      fetchSortedLists(value)
+      document.querySelector('.content').classList.add(value)
+
+      document.querySelectorAll('.sort-option-btn').forEach(option => {
+        if (option.id == value) {
+          option.classList.add('active')
+        }
+      })
+    }
+  })
+} 
+else {
+  document.querySelector('.content').classList.add('sort-recent')
+  fetchSortedLists('sort-recent')
+}
+
+// content list view
+if (urlView == 'grid') {
+  document.querySelector('.content').classList.add('grid')
+  document.querySelector('#view-svg-container').children[0].classList.add('active')
+}
+else if (urlView == 'list') {
+  document.querySelector('.content').classList.add('list')
+  document.querySelector('#view-svg-container').children[1].classList.add('active')
+}
+else {
+  document.querySelector('.content').classList.add('grid')
+  document.querySelector('#view-svg-container').children[0].classList.add('active')
+} 
+
+
+// content list order
+if (urlSortOrder == 'asc') {
+  document.querySelector('#order-svg-container').children[1].classList.add('active')
+}
+else {
+  document.querySelector('.content').classList.add('desc')
+  document.querySelector('#order-svg-container').children[0].classList.add('active')
+} 
 
 // selectcard btns
 btnListner()  

@@ -365,6 +365,10 @@ body {
                     &:hover {
                         color: #3db4f2;
                     }
+
+                    &.active {
+                        color: #5db8e8;
+                    }
                 }
             }
 
@@ -1066,7 +1070,7 @@ body {
                             font-weight: 400;
 
                             &.active:after {
-                                background-color: #3db4f2;
+                                background-color: #5db8e8;
                                 width: 12px;
                                 height: 12px;
                                 border-radius: 50px;
